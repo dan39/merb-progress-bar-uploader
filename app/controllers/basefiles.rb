@@ -35,6 +35,7 @@ class Basefiles < Application
         # to the attachment_fu enabled model
         # @basefile.save!
         # redirect( url(:folder,@basefile.folder_id) )
+p "craaaaaaaaaaapandfish"
 
          p "CRUUUUURD aarrrrrgg"
     p params 

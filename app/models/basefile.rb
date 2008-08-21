@@ -43,7 +43,6 @@ class Basefile < ActiveRecord::Base
         i.content_type = tempfile[:content_type]
         i.filename     = tempfile[:filename]
   #i.filename.gsub(/[^\w\.\-]/, '_') 
-  #i.filename = "(AniRena)[AuAu~Raws] Zoku Sayonara Zetsubou Sensei 04 [x264 afs AAC 1280x720].mp4.torrent"
         i.size         = tempfile[:size]
         i.folder_id = tempfile[:folder_id]
         p "bite me"
@@ -79,6 +78,8 @@ class Basefile < ActiveRecord::Base
     def before_create
       # Now move the original temporary file from it's home
       # in /tmp to whatever our upload directory is
+      p "omg!!!"
+      p filetemp.path
       FileUtils.mv( filetemp.path, basefile_path )
       #FileUtils.mv( filetemp.path, basefile_path )
 
