@@ -1,0 +1,391 @@
+/* @group demo code for uploader progress bar */
+
+#demo-status
+{
+	xbackground-color:		#F9F7ED;
+	margin-left: -20px;
+	padding-bottom: 10px;
+	color: black;
+}
+ 
+#demo-status .progress
+{
+	background:				white url(/images/progress.gif) no-repeat;
+	background-position:	+50% 0;
+	margin-right:			0.5em;
+}
+ 
+#demo-status .progress-text
+{
+	font-size:				0.9em;
+	font-weight:			bold;
+}
+ 
+#demo-list
+{
+	list-style:				none;
+	margin: 0 0 0 -30px;
+	
+}
+ 
+#demo-list li.file
+{
+	border-bottom:			1px solid #eee;
+	background:				#fff url(../images/file.png) no-repeat 4px 4px;
+}
+#demo-list li.file.file-uploading
+{
+	background-image:		url(/images/uploading.png);
+	background-color:		#D9DDE9;
+}
+#demo-list li.file.file-success
+{
+	background-image:		url(/images/success.png);
+}
+#demo-list li.file.file-failed
+{
+	background-image:		url(/images/success.png);
+}
+ 
+#demo-list li.file .file-name
+{
+	font-size:				1.2em;
+	display:				block;
+	clear:					left;
+	line-height:			40px;
+	height:					40px;
+	font-weight:			bold;
+	margin-left: 44px;
+}
+#demo-list li.file .file-size
+{
+	font-size:				0.9em;
+	line-height:			18px;
+	float:					right;
+	margin-top:				2px;
+	margin-right:			6px;
+}
+#demo-list li.file .file-info
+{
+	display:				block;
+	font-size:				0.9em;
+	line-height:			20px;
+	margin-left: 44px;
+}
+#demo-list li.file .file-remove
+{
+	clear:					right;
+	float:					right;
+	line-height:			18px;
+	margin-right:			6px;
+}
+
+/* @end */
+
+/* @group table layout code */
+
+table {
+	width: 100%;
+	text-align: left;
+}
+
+
+
+div#example_1 table, div#example_2 table {
+  font-size   :1.0em; }
+div#example_1 table {
+  text-align: left; }
+div#example_1 table thead tr th {
+  padding     :2px 4px;
+  background  :#d7d7d7;
+  border-bottom:1px solid black; }
+div#example_1 table tbody tr.even {
+  padding     :2px 4px; 
+	background: #ebecf0;
+}
+div#example_1 table tbody tr.odd {
+	background: #b4b8b5;
+ }
+ 
+ .odd{
+	background-color: #fff;
+	color: #222;
+}
+.even{
+	background-color: #eee;
+	color: #444;
+	}
+
+/* @end */
+
+/* @group layout code */
+
+xdiv { border: solid 1px; }
+
+body {
+	color: white;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	background-color: black;
+}
+
+a {
+	color: white;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+}
+
+	.clear_all { clear: both; height: 0px; }
+	#root { min-width: 800px;}
+	#top { xheight: 200px; background: #green; xwidth: 600px; }
+
+/* @group header */
+
+#logo { height: 110px; background: #000; }
+
+#header {  }
+#logo h1 {
+	font-size: 30px;
+	font-weight: normal;
+	font-style: normal;
+	margin-left: 260px;
+	padding-top: 64px;
+}
+#logo h1 span {
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* @end */
+	#content { 	overflow:hidden;
+	background-color:#blue;
+ }
+	#left_sidebar { float: left; xheight: 200px; background: #blue;
+	margin-right: 0;
+	width: 140px;
+}
+	#middle_content { xheight: 200px; 
+	float: left;
+	width: 800px;
+	padding-left: 20px;
+	background-color: #004562;
+		border-right:140px solid #c33; /* The width and color of the rail */
+	margin-right:-140px; /* Hat tip to Ryan Brill */
+
+}
+	#footer {  }
+	
+	
+	
+	
+	
+	#wrapper { width: 500px; margin: 0 auto;}
+	#navcontainer ul
+	{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: center;
+	}
+	
+	#navcontainer ul li { display: inline; }
+	
+	#navcontainer ul li a
+	{
+	text-decoration: none;
+	padding: .2em 1em;
+	color: #fff;
+	background-color: #036;
+	}
+	
+	#navcontainer ul li a:hover
+	{
+	color: #fff;
+	background-color: #369;
+	}
+	#navcontainer #li_number { font-size: 24px;}
+
+#path_names h3 {
+	font-size: 12px;
+	margin-right: 80px;
+	padding-top: 9px;
+}
+#path_names h3 span {
+	font-size: 14px;
+}
+
+.h1_as_block { display: block;}
+
+/* @end */
+
+#gridd {
+	height: 780px;
+	position: absolute;
+	z-index: 200;
+	width: 960px;
+	background: url(../images/960_grid_12_col.png) no-repeat left top;
+}
+
+#tools {
+	background-color: #000;
+	margin-left: -20px;
+	padding-left: 20px;
+	padding-bottom: 1px;
+	padding-top: 12px;
+}
+
+#tools h2 {
+	color: white;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: 1px;
+}
+
+.button_style_form {
+	width: 382px;
+	font-size: 21px;
+}
+
+a.button_style {
+	width: 147px;
+	height: 22px;
+	background: url(../images/create_edit_button.gif) no-repeat;
+	font-size: 11px;
+	padding-top: 4px;
+	padding-left: 10px;
+	display: block;
+	margin-top: -4px;
+	margin-right: 0;
+	color: navy;
+	text-decoration: none;
+}
+
+.tools_row input, .tools_row form, .tools_row button {
+	xborder: 1px solid gray;
+	height: 30px;
+	margin-bottom: 11px;
+}
+
+.tools_row td.left {
+	width: 154px;
+}
+.tools_row .right {
+	width: 600px;
+}
+
+
+#fileuploadbox {
+	margin-top: 40px;
+}
+#fileuploadbox h2 {
+	font-size: 30px;
+	font-weight: normal;
+	font-style: normal;
+}
+#giant_select_button {
+	background-color: #000;
+	margin-bottom: -20px;
+	padding-left: 45px;
+}
+#giant_select_button h2 {
+	font-size: 24px;
+	font-weight: normal;
+	font-style: normal;
+}
+
+#demo-status p, #demo-status h4, #demo-status h5{
+	padding-left: 20px;
+}
+#fileuploadbox p {
+	color: #fff;
+	padding-top: 5px;
+}
+#uploadlistbox {
+	background-color: silver;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+#uploadlistbox .push_over {
+	margin-left: 10px;
+}
+#uploadlistbox h4 {
+	font-size: 18px;
+	font-weight: normal;
+	font-style: normal;
+	padding-left: 12px;
+	background-color: #000;
+	padding-bottom: 4px;
+	margin-bottom: 3px;
+	margin-top: -10px;
+	padding-top: 4px;
+}
+#uploadlistbox h5 {
+	font-size: 12px;
+	padding-left: 30px;
+	color: black;
+}
+
+#files_list_array h2 {
+	font-size: 30px;
+	font-weight: normal;
+	font-style: normal;
+	margin-bottom: 0;
+}
+
+/* @group Files and folders */
+
+table.grid {
+	background-color: black;
+	color: #000;
+	margin-left: -20px;
+	width: 820px;
+}
+table.grid.folder a:link {
+	color: #fff;
+}
+table.grid.folder a:vistied {
+	color: #fff;
+}
+
+table.grid a:link {
+	color: #000;
+}
+table.grid a:vistied {
+	color: #000;
+}
+
+table.grid th a:link {
+	color: #fff;
+}
+table.grid th {
+	font-size: 18px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+table thead tr th {
+	padding: 2px 4px;
+	border-bottom: 1px solid black;
+}
+
+table tbody tr td {
+	padding: 2px 4px;
+}
+
+table tbody tr.even {
+	background: #ebecf0;
+}
+
+table tbody tr.odd {
+	background: #b4b8b5;
+}
+
+
+/* @end */
+
+#main_tools {
+	background-color: #000;
+}

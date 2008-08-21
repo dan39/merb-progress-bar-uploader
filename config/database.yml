@@ -1,0 +1,22 @@
+---
+# This is a sample database file for the ActiveRecord ORM
+:development: &defaults
+  :adapter: mysql
+  :database: fudge
+  :username: root
+  :password: 
+  :host: localhost
+  :socket: /tmp/mysql.sock
+
+:test:
+  <<: *defaults
+  :database: sample_test
+
+:production:
+ # <<: *defaults
+ :adapter: mysql
+ :database: fudge
+ :username: root
+ :password: 
+ :host: localhost
+ :socket: /tmp/mysql.sock

@@ -1,0 +1,15 @@
+<% for crap in @pockies %>
+<h1><%= link_to crap.title, url(:pocky,crap) %></h1>
+<p><%= crap.title %></p>
+
+
+<% form_for crap, :action => url(:pocky, crap.id) do %>
+	<fieldset>
+		<legend>pocky</legend>
+		<li><%= text_control :title, :label => 'Title: ' %></li>
+		<%= submit_button 'Submit' %>
+	</fieldset>
+<% end %>
+
+
+<% end %>
