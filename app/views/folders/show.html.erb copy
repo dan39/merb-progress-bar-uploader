@@ -1,0 +1,565 @@
+
+<%#= link_to "new stuff here", url(:new_bunny) %>
+
+<h1><%= @folder.id %></h1>
+
+<style language="Javascript" type="text/css">
+
+	/**
+	 * You don't need this css part, scroll down ;)
+	 */
+
+	.halfsize
+	{
+		width:					48%;
+		margin-right:			5px;
+		float:					left;
+	}
+	form fieldset
+	{
+		border:					none;
+		border-top:				1px solid #888;
+		margin:					1em 0.5em 1em 0;
+		padding:				1em 0;
+	}
+
+	form legend
+	{
+		font-weight:			bold;
+		font-size:				1.2em;
+		color:					#888;
+		margin:					auto;
+		margin-left:			0;
+		padding:				0 .25em 0 0;
+	}
+	label
+	{
+		width:					10em;
+		float:					left;
+		padding:				.2em .8em 0 0;
+		margin-right:			.4em;
+		text-align:				right;
+		font-size:				1.1em;
+	}
+	label.error
+	{
+		color:					#ff0000;
+	}
+
+	label span
+	{
+		display:				block;
+		color:					#888;
+		font-size:				0.85em;
+		margin-bottom:			0.5em;
+	}
+	form div.label,
+	form div.note,
+	form div.footer
+	{
+		clear:					both;
+		margin:					1em 0 0 0;
+		padding:				0.1em 0.3em;
+	}
+
+	form div.note
+	{
+		margin-left:			.5em;
+	}
+	input,
+	button,
+	select
+	{
+		width:					10em;
+	}
+	input.submit
+	{
+		font-weight:			bold;
+		color:					#333;
+		width:					auto;
+		padding-right:			6px;
+		padding-left:			6px;
+	}
+
+
+	/**
+	 * Thats the basic css needed for the upload bars
+	 */
+
+	.photoupload-queue
+	{
+		list-style:				none;
+	}
+	.photoupload-queue li
+	{
+		xbackground:				url(images/photo_upload.png) no-repeat 0 5px;
+		padding:				5px 0 5px 22px;
+	}
+
+	.photoupload-queue .queue-file
+	{
+		font-weight:			bold;
+	}
+
+	.photoupload-queue .queue-size
+	{
+		color:					#aaa;
+		margin-left:			1em;
+		font-size:				0.9em;
+	}
+
+	.photoupload-queue .queue-loader
+	{
+		position:				relative;
+		margin:					3px 15px;
+		font-size:				0.9em;
+		background-color:		#ddd;
+		color:					#fff;
+		border:					1px inset #ddd;
+	}
+	.photoupload-queue .queue-subloader
+	{
+		text-align:				center;
+		position:				absolute;
+		background-color:		#81B466;
+		height:					100%;
+		width:					0%;
+		left:					0;
+		top:					0;
+	}
+
+	.photoupload-queue .input-delete
+	{
+		width:					16px;
+		height:					16px;
+		xbackground:				url(images/delete.png) no-repeat 0 0;
+		text-decoration:		none;
+		border:					none;
+		float:					right;
+	}
+</style>
+
+<script type="text/javascript">
+	//<![CDATA[
+
+	/**
+	 * Sample Data
+	 */
+
+	window.addEvent('load', function()
+	{
+		/**
+		 * We take the first input with this class we can find ...
+		 */
+		var input = $('photoupload-filedata-1');
+
+		/**
+		 * Simple and easy
+		 * 
+		 * swf: the path to the swf
+		 * container: the object is embedded in this container (default: document.body)
+		 * 
+		 * NOTE: container is only used for the first uploader u create, all others depend
+		 * on the same swf in that container, so the container option for the other uploaders
+		 * will be ignored.
+		 * 
+		 */
+		
+		var uplooad = new FancyUpload(input, {
+			swf: 'javascripts/swiff/Swiff.Uploader.swf',
+			queueList: 'photoupload-queue',
+			container: $E('h1')
+		});
+
+		/**
+		 * We create the clear-queue link on-demand, since we don't know if the user has flash/javascript.
+		 * 
+		 * You can also create the complete xhtml structure thats needed for the queue here, to be sure
+		 * that its only in the document when the user has flash enabled.
+		 */
+		
+
+		/**
+		 * Second, this one uses the already injected swf embed to upload files.
+		 */
+		var uplooad2 = new FancyUpload($('photoupload2-filedata-1'), {
+			swf: 'javascripts/swiff/Swiff.Uploader.swf',
+			queueList: 'photoupload-queue-2'
+		});
+		
+	});
+
+	//]]>
+</script>
+<script type="text/javascript" language="JavaScript"><!-- <![CDATA[
+
+//
+// new SortingTable( 'my_table', {
+//   zebra: true,     // Stripe the table, also on initialize
+//   details: false   // Has details every other row
+// });
+//
+// The above were the defaults.  The regexes in load_conversions test a cell
+// begin sorted for a match, then use that conversion for all elements on that
+// column.
+//
+// Requires mootools Class, Array, Function, Element, Element.Selectors,
+// Element.Event, and you should probably get Window.DomReady if you're smart.
+//
+
+var SortingTable = new Class({
+
+  initialize: function( table, options ) {
+    this.options = $merge({
+      zebra: true,
+      details: false
+    }, options);
+    
+    this.table = $(table);
+    
+    this.tbody = $(this.table.getElementsByTagName('tbody')[0]);
+    if (this.options.zebra) {
+      SortingTable.stripe_table( this.tbody.getElements( 'tr' ) );
+    }
+
+    this.headers = new Hash;
+    var thead = $(this.table.getElementsByTagName('thead')[0]);
+    $each(thead.getElementsByTagName('tr')[0].getElementsByTagName('th'), function( header, index ) {
+      var header = $(header);
+      this.headers.set( header.getText(), { column: index } );
+      header.addEvent( 'mousedown', function(evt){
+        var evt = new Event(evt);
+        this.sort_by_header( evt.target.getText() );
+      }.bind( this ) );
+    }.bind( this ) );
+
+    this.load_conversions();
+  },
+
+  sort_by_header: function( header_text ){
+    this.rows = new Array;
+    var trs = this.tbody.getElements( 'tr' );
+    while ( trs.length > 0 ) {
+      var row = { row: trs.shift().remove() };
+      if ( this.options.details ) {
+        row.detail = trs.shift().remove();
+      }
+      this.rows.unshift( row );
+    }
+    
+    var header = this.headers.get( header_text );
+    if ( this.sort_column >= 0 && this.sort_column == header.column ) {
+      // They were pulled off in reverse
+    } else {
+      this.sort_column = header.column;
+      if (header.conversion_function) {
+        this.conversion_function = header.conversion_function;
+      } else {
+        this.conversion_function = false;
+        this.rows.some(function(row){
+          var to_match = $(row.row.getElementsByTagName('td')[this.sort_column]).getText();
+          if (to_match == ''){ return false }
+          this.conversions.some(function(conversion){
+            if (conversion.matcher.test( to_match )){
+              this.conversion_function = conversion.conversion_function;
+              return true;
+            }
+            return false;
+          }.bind( this ));
+          if (this.conversion_function){ return true; }
+          return false;
+        }.bind( this ));
+        header.conversion_function = this.conversion_function.bind( this );
+        this.headers.set( header_text, header );
+      }
+      this.rows.each(function(row){
+        row.compare_value = this.conversion_function( row );
+      }.bind( this ));
+      this.rows.sort( this.compare_rows.bind( this ) );
+    }
+
+    var index = 0;
+    while (this.rows.length > 0) {
+      var row = this.rows.shift();
+      row.row.injectInside( this.tbody );
+      if (row.detail){ row.detail.injectInside( this.tbody ) };
+      if ( this.options.zebra ) {
+        row.row.removeClass( 'alt' );
+        if (row.detail){ row.detail.removeClass( 'alt' ); }
+        if ( ( index % 2 ) == 0 ) {
+          row.row.addClass( 'alt' );
+          if (row.detail){ row.detail.addClass( 'alt' ); }
+        }
+      }
+      index++;
+    }
+    this.rows = false;
+  },
+
+  compare_rows: function( r1, r2 ) {
+    if ( r1.compare_value > r2.compare_value ) { return  1 }
+    if ( r1.compare_value < r2.compare_value ) { return -1 }
+    return 0;
+  },
+  
+  load_conversions: function() {
+    this.conversions = $A([
+      // YYYY-MM-DD, YYYY-m-d
+      { matcher: /\d{4}-\d{1,2}-\d{1,2}/,
+        conversion_function: function( row ) {
+          var cell = $(row.row.getElementsByTagName('td')[this.sort_column]).getText();
+          var re = /(\d{4})-(\d{1,2})-(\d{1,2})/;
+          cell = re.exec( cell );
+          return new Date(parseInt(cell[1]), parseInt(cell[2], 10) - 1, parseInt(cell[3], 10));
+        }
+      },
+      // Fallback 
+      { matcher: /.*/,
+        conversion_function: function( row ) {
+          return $(row.row.getElementsByTagName('td')[this.sort_column]).getText();
+        }
+      }
+    ]);
+  }
+
+});
+
+SortingTable.stripe_table = function ( tr_elements  ) {
+  var counter = 0;
+  $$( tr_elements ).each( function( tr ) {
+    if ( tr.style.display != 'none' && !tr.hasClass('collapsed') ) {
+      counter++;
+    }
+    tr.removeClass( 'alt' );   
+    if ( !(( counter % 2 ) == 0) ) {
+      tr.addClass( 'alt' );   
+    }
+  }.bind( this ));
+}
+// ]]> --></script>
+<style type="text/css">
+	xbody{
+	  font-size   :76%;
+	  font-family :Verdana, Helvetica; }
+	div#example_1 table, div#example_2 table {
+	  font-size   :1.0em; }
+	table {
+		width: 100%;
+	  text-align: left; }
+	table thead tr th {
+	  padding     :2px 4px;
+	  background  :#d7d7d7;
+	  border-bottom:1px solid black; }
+	table tbody tr td {
+	  padding     :2px 4px; }
+	table tbody tr.alt {
+	  background  :#e8f3e8; }
+	table tbody tr.collapsed td {
+	  padding     :0px; }
+	table tbody tr.collapsed td div {
+	  font-family :Serif;
+	  white-space :pre;
+	  font-size   :1.0em;
+	  margin-left :10px; }
+</style>
+
+	<div id="container">
+<%#= controller_name %>
+	
+
+	Index for LWDG
+
+
+
+
+
+
+
+<table cellpadding="0" cellspacing="0" id="example_1_table">
+<thead>
+  <tr>
+    <th>File name</th>
+    <th>Size</th>
+    <th></th>
+
+  </tr>
+</thead>
+
+<tbody>
+	<% for b in @basefiles %>
+<%= link_to :folders_basefiles %>
+  <tr>
+	<td><%= delete_button :delete_folder_basefile, b, 'Remove' %>
+    </td>
+    <td>	<a href="../uploads/<%= b.filename %>"><%= b.filename %></a> </td>
+<td>	<% if (b.size.to_i / 1000) <= 999 %>
+		<%= b.size.to_i / 1000 %> kbs
+	<% else (b.size.to_i / 1000) >= 1000 %>
+		<%= a = (b.size.to_i / 1000.0 / 1000.0); "%.1f" % a %> mbs
+	<% end %>
+	</td>
+	<td>/folder/<%= @folder.id-%>/basefiles/<%= b.id %></td>
+	<td><form method="post" action="/folders/<%= @folder.id-%>/basefiles/<%= b.id %>">
+	       <input type="hidden" value="destroy" name="_method"/>
+	       <button type="submit">Remove</button>
+	     </form>
+	</td>
+  </tr>
+<% end %>
+
+</tbody>
+</table>
+
+
+
+
+
+<script type="text/javascript">
+window.addEvent( 'domready', function(){
+  new SortingTable( 'example_1_table' );
+});
+</script>
+<%#= delete_button "Nuke", url(:bunny,b) %>
+
+	
+	 
+
+
+aocueooetoou
+<br />
+<% form_tag(:action => "/swfupload", :id => @folder, 
+            :enctype => "multipart/form-data") do %> 
+  <%= file_field :name => 'Filedata', :label => "Your file:" %> <br />
+
+<%#= hidden_control @folder, :value => @folder.id %><br />
+ <%= hidden_field :name => "folder_id", :value => @folder.id %>
+  <%= submit_button "Upload!" %> 
+<% end %> 
+aocueooetoou
+<br />
+
+	<form action="/swfupload" method="post" id="photoupload2" enctype="multipart/form-data">
+		<div class="halfsize">
+			<fieldset>
+				<legend>Uploader</legend>
+
+				<div class="label emph">
+					<label for="photoupload2-filedata-1">
+						Upload Files:
+						<span>After selecting the photos start the upload.</span>
+					</label>
+					<input type="file" name="Filedata" id="photoupload2-filedata-1" />
+					
+					<input type="hidden" id="folder_id" name="folder_id[folder_id]" value="folder_id" />
+					
+				</div>
+
+			</fieldset>
+		</div>
+		
+
+		
+		
+		
+		<div class="halfsize">
+			<fieldset>
+				<legend> Upload Queue</legend>
+
+				<ul class="photoupload-queue" id="photoupload-queue-2">
+					<li style="display: none" />
+				</ul>
+			</fieldset>
+		</div>
+		
+		
+		
+<div class="clear"></div>
+
+<div class="footer">
+	<input type="submit" class="submit" id="profile-submit-2" value="Start Upload"/>
+</div>
+
+</form>
+
+
+
+
+
+________________________________________________________________________________
+__________________________________________________________________________
+
+<a href="//localhost:4000/folders/">Home place</a>
+<p><%= link_to 'Back to Folders List', url(:folder) %></p>
+<h1>Go back to <%= link_to 'Go to Root', url(:folder,@folder.root) %></h1>
+
+
+<p><%= link_to 'Create New Folder', url(:new_folder) %></p>
+
+<h1><%= link_to @folder.title, url(:folder,@folder) %></h1>
+<p><%= @folder.title %></p>
+
+
+<p><%= link_to 'Edit Folder Name', url(:edit_folder, @folder) %></p>
+
+<p><%= link_to 'Back to Folders List', url(:folder) %></p>
+
+
+-------------------- <br/ >
+Other folders <br/ >
+
+<h1>Go back to <%= link_to @folder.parent.id, url(:folder,@folder.parent) %></h1>
+
+<% for d in @find_the_other_folders %>
+<h1><%= link_to d.title, url(:folder,d) %></h1>
+<% end %>
+
+________________________ <br/ >
+ <br/ >
+
+
+NNEEW 
+  <% form_tag(:action => url(:controller => "folders", :action => "create")) do %>
+			<%= text_field :title => 'first_name' %>
+				<%= submit_button 'Create' %>
+<% end %>
+
+
+
+
+Create the extra foldersssss  <br/ >
+<%#@folder.children.create("title" => "baka")%>
+
+BBBBBBBB
+
+<% form_for @folder, :action => url(:folder, @folder) do %>
+
+
+<%= text_control :title, :label => 'Title: ' %>
+		<%= submit_button 'Submit' %>
+			<%#= hidden_control :folder_id %>
+
+<% end %>
+
+
+ <br/ >
+__________________
+
+
+_________________
+<% for b in @ffff %>
+<p><%= b.title %></p>
+<% end %>
+
+
+
+<% form_for @filess, :action => url(:folder_basefiles, :folder_id => @folder) do %>
+	
+			<li><%= text_control :title, :label => 'title: ' %></li>
+
+
+		<%= hidden_control :folder_id %>
+
+		<%= submit_button 'Submit Comment' %>
+
+<% end %>
+

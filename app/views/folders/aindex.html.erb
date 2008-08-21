@@ -1,0 +1,23 @@
+<p><%= link_to 'Create New Folder', url(:new_folder) %></p>
+
+<h1>Folders</h1>
+
+<% for f in @folders %>
+
+<h1><%= link_to f.title, url(:folder,f) %></h1>
+<form method="post" action="/folders/<%= f.id %>">
+       <input type="hidden" value="delete" name="_method"/>
+       <button type="submit">Remove</button>
+     </form>
+
+
+<% end %>
+	<% for f in @folders %>
+<a href="uploads/<%= f.title %>"><%= f.title %></a>
+
+<br />
+
+
+	<% end %>
+	
+
